@@ -14,8 +14,8 @@ resource "aws_db_instance" "wp_db" {
   engine               = "mysql"
   engine_version       = "8.0"
   instance_class       = "db.t3.micro"
-  username             = "wp_user"
-  password             = "WP!!User2Change!"
+  username             = var.db_username
+  password             = var.db_password
   parameter_group_name = "default.mysql8.0"
   multi_az = true
   skip_final_snapshot  = true

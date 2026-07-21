@@ -20,6 +20,8 @@ module "db" {
   source = "./modules/db"
   vpc_sg_db = module.sg.db_sg_id
   private_subnet_ids = module.networking.private_db_subnets_ids
+  db_password = var.db_password
+  db_username = var.db_username
   
 }
 
