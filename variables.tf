@@ -1,0 +1,39 @@
+variable "aws_region" {
+  type = string
+}
+
+variable "profile" {
+  type = string
+  
+}
+
+variable "availability_zones" {
+  type = list(string)
+  
+}
+
+variable "cidr_block" {
+  type = string
+  
+}
+
+variable "asg_max_size" {
+  type = number
+  
+}
+
+variable "asg_min_size" {
+  type = number
+}
+
+variable "asg_desired" {
+  type = number
+}
+
+variable "domain_name" {
+  type = string
+}
+
+variable "admin_ip" {
+  type = string
+}
