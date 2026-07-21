@@ -1,0 +1,48 @@
+name: Plan - Deploy Infrastructure to AWS
+on:
+  push:
+    branches:
+      - "main"
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  TF_VAR_aws_region: ${{vars.AWS_REGION}}
+  TF_VAR_cidr_block: ${{vars.CIDR_BLOCK}}
+  TF_VAR_asg_desired: 2
+  TF_VAR_asg_min_size: 1
+  TF_VAR_asg_max_size: 4
+  TF_VAR_availability_zones: ${{vars.AWS_AZ}}
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+
+      - name: authenticate OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          audience: sts.amazonaws.com
+          aws-region: ${{vars.AWS_REGION}}
+          role-to-assume: ${{vars.AWS_TF_ROLE_ARN}}
+          role-session-name: TFPPLANSESSION
+
+      - name: setup terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
+
+      - name: initialize
+        run: terraform init
+
+      - name: generate plan
+        run: terraform plan
+        env:
+          TF_VAR_domain_name: ${{secrets.DOMAIN_NAME}}
+          TF_VAR_admin_ip: ${{secrets.ADMIN_IP}}
+          TF_VAR_db_password: ${{secrets.DB_PASSWORD}}
+          TF_VAR_db_username: ${{secrets.DB_USERNAME}}
