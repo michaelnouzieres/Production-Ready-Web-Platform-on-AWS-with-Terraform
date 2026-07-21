@@ -4,7 +4,8 @@ variable "aws_region" {
 
 variable "profile" {
   type = string
-  
+  default = null
+  description = "The local AWS CLI profile to use. Automatically ignored in OIDC environments."
 }
 
 variable "availability_zones" {
