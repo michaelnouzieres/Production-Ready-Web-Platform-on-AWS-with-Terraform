@@ -7,7 +7,7 @@ resource "aws_sns_topic" "cloudwatch_alarms" {
 
 #2 Create email susbcription to the target
 resource "aws_sns_topic_subscription" "cloudwatch_alarms_email_target" {
-  topic_arn = aws_sns_topic.user_updates.arn
+  topic_arn = aws_sns_topic.cloudwatch_alarms.arn
   protocol  = "email"
   endpoint  = var.email
 }
