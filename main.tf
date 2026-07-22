@@ -74,3 +74,15 @@ module "waf" {
   alb_arn = module.alb.alb_arn
   admin_ip = var.admin_ip
 }
+
+module "sns" {
+  source = "./modules/sns"
+  email = var.email
+}
+
+module "aws_cloudwatch_alarm" {
+  source = "./modules/cloudwatch"
+  sns_topic_arn = module.sns.sns_topic_arn
+  alb_arn_suffix = module.alb.alb_arn_suffix
+  asg_name = module.asg.asg_name
+}

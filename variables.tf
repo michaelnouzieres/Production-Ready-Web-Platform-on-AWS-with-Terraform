@@ -46,3 +46,7 @@ variable "db_username" {
 variable "db_password" {
   type = string
 }
+
+variable "email" {
+  type = string
+}

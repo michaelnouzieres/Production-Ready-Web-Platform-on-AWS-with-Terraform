@@ -11,7 +11,7 @@ output "alb_dns_name" {
   value = aws_lb.alb_wordpress.dns_name
 }
 
-output "alb_arn" {
-  value = aws_lb.alb_wordpress.arn
+output "alb_arn_suffix" {
+  value = aws_lb.alb_wordpress.arn_suffix
   
 }
